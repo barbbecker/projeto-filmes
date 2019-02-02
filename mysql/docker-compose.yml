@@ -1,0 +1,13 @@
+version:  "2"
+
+services:
+  db:
+    image: mysql:latest
+    ports:
+      -  "3306:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: projeto-filmes
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
