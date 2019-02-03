@@ -56,11 +56,11 @@ public class FilmeController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-//	@PostMapping(value = "/filmes/{id}/avaliacao")
-//	public ResponseEntity<?> salvarAvaliacao(@PathVariable("id") Integer id, @RequestBody AvaliacaoDTO avaliacaoDTO) {
-//		this.filmeService.adicionarAvaliacao(id, avaliacaoDTO);
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
+	@PostMapping(value = "/filmes/{id}/avaliacao")
+	public ResponseEntity<?> salvarAvaliacao(@PathVariable("id") Integer id, @RequestBody AvaliacaoDTO avaliacaoDTO) {
+		this.filmeService.adicionarAvaliacao(id, avaliacaoDTO);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 
 	@DeleteMapping(value = "/filmes/{id}")
 	public ResponseEntity<?> deletar(@PathVariable("id") Integer id) {

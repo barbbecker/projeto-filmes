@@ -114,7 +114,7 @@ public class FilmeService {
 		filmeDTO.setId(filme.getId());
 	}
 
-	public void adicionarAvaliacao(AvaliacaoDTO avaliacaoDTO) {
+	public void adicionarAvaliacao(Integer id, AvaliacaoDTO avaliacaoDTO) {
 		Optional<Filme> filmeEncontrado = this.filmeRepository.findById(avaliacaoDTO.getIdFilme());
 		Optional<Usuario> usuarioEncontrado = this.usuarioRepository.findByEmail(avaliacaoDTO.getUsuario());
 		if (filmeEncontrado.isPresent()) {
