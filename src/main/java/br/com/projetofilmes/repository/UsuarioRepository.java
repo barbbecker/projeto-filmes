@@ -7,11 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import br.com.projetofilmes.domain.Filme;
+import br.com.projetofilmes.domain.Usuario;
 
 @Repository
-public interface FilmeRepository extends JpaRepository<Filme, Integer> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
-	@Query("SELECT f FROM Filme f WHERE f.titulo = :titulo")
-	public Optional<Filme> findByTitulo(@Param("titulo") String titulo);
+	@Query("SELECT u FROM Usuario u WHERE u.email = :email")
+	public Optional<Usuario> findByEmail(@Param("email") String email);
+
 }

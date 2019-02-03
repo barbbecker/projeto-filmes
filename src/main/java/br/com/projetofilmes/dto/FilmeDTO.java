@@ -1,11 +1,10 @@
 package br.com.projetofilmes.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
-import br.com.projetofilmes.domain.Genero;
 
 public class FilmeDTO {
 
@@ -22,7 +21,13 @@ public class FilmeDTO {
 	@NotEmpty
 	private String nomeDiretor;
 
-	private Genero genero;
+	private String genero;
+
+	// inclusao
+	private AvaliacaoDTO avaliacaoDTO;
+
+	// consulta
+	private List<AvaliacaoDTO> avaliacao;
 
 	public Integer getId() {
 		return id;
@@ -56,12 +61,28 @@ public class FilmeDTO {
 		this.nomeDiretor = nomeDiretor;
 	}
 
-	public Genero getGenero() {
+	public String getGenero() {
 		return genero;
 	}
 
-	public void setGenero(Genero genero) {
+	public void setGenero(String genero) {
 		this.genero = genero;
+	}
+
+	public AvaliacaoDTO getAvaliacaoDTO() {
+		return avaliacaoDTO;
+	}
+
+	public void setAvaliacaoDTO(AvaliacaoDTO avaliacaoDTO) {
+		this.avaliacaoDTO = avaliacaoDTO;
+	}
+
+	public List<AvaliacaoDTO> getAvaliacao() {
+		return avaliacao;
+	}
+
+	public void setAvaliacao(List<AvaliacaoDTO> avaliacao) {
+		this.avaliacao = avaliacao;
 	}
 
 }

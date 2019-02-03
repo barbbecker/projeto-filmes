@@ -1,15 +1,17 @@
 package br.com.projetofilmes.dto;
 
-import br.com.projetofilmes.domain.Filme;
-import br.com.projetofilmes.domain.Usuario;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class AvaliacaoDTO {
 
 	private Integer id;
 
-	private Usuario usuario;
+	@NotNull
+	@NotEmpty
+	private String usuario;
 
-	private Filme filme;
+	private Integer idFilme;
 
 	private Integer nota;
 
@@ -21,20 +23,20 @@ public class AvaliacaoDTO {
 		this.id = id;
 	}
 
-	public Usuario getUsuario() {
+	public String getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
 
-	public Filme getFilme() {
-		return filme;
+	public Integer getIdFilme() {
+		return idFilme;
 	}
 
-	public void setFilme(Filme filme) {
-		this.filme = filme;
+	public void setIdFilme(Integer idFilme) {
+		this.idFilme = idFilme;
 	}
 
 	public Integer getNota() {
