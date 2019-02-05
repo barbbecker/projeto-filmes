@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -43,8 +44,8 @@ public class Filme extends BaseDomain {
 	@JoinColumn(name = "generoid")
 	private Genero genero;
 
-	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "filme")
-	private List<Avaliacao> avaliacao;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "filme")
+	private List<Avaliacao> avaliacoes;
 
 	@SuppressWarnings("unused")
 	private Filme() {
@@ -56,7 +57,7 @@ public class Filme extends BaseDomain {
 		this.dataLancamento = dataLancamento;
 		this.nomeDiretor = nomeDiretor;
 		this.genero = genero;
-		this.avaliacao = new ArrayList<>();
+		this.avaliacoes = new ArrayList<>();
 		validarDomain();
 	}
 
@@ -86,12 +87,12 @@ public class Filme extends BaseDomain {
 	}
 
 	public List<Avaliacao> getAvaliacao() {
-		return avaliacao;
+		return avaliacoes;
 	}
 
 	public void adicionarAvaliacao(Avaliacao avaliacao) {
 		avaliacao.informarFilme(this);
-		this.avaliacao.add(avaliacao);
+		this.avaliacoes.add(avaliacao);
 	}
 
 }

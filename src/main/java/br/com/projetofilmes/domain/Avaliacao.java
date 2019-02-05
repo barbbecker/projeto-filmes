@@ -26,7 +26,7 @@ public class Avaliacao extends BaseDomain {
 	private Usuario usuario;
 
 	@ManyToOne
-	@JoinColumn(name = "filmeid")
+	@JoinColumn(name = "filmeid", referencedColumnName = "filmeid")
 	private Filme filme;
 
 	@NotNull(message = "A nota da avaliação não pode ser nula")
@@ -70,5 +70,4 @@ public class Avaliacao extends BaseDomain {
 	public void informarFilme(Filme filme) {
 		this.filme = filme;
 	}
-
 }

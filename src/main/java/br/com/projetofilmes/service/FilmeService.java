@@ -15,7 +15,8 @@ import br.com.projetofilmes.domain.Filme;
 import br.com.projetofilmes.domain.Genero;
 import br.com.projetofilmes.domain.Usuario;
 import br.com.projetofilmes.dto.AvaliacaoDTO;
-import br.com.projetofilmes.dto.FilmeDTO;
+import br.com.projetofilmes.dto.FilmeInputDTO;
+import br.com.projetofilmes.dto.FilmeOutputDTO;
 import br.com.projetofilmes.repository.FilmeRepository;
 import br.com.projetofilmes.repository.GeneroRepository;
 import br.com.projetofilmes.repository.UsuarioRepository;
@@ -31,16 +32,18 @@ public class FilmeService {
 	private UsuarioRepository usuarioRepository;
 
 	@Autowired
-	public FilmeService(FilmeRepository filmeRepository, GeneroRepository generoRepository) {
+	public FilmeService(FilmeRepository filmeRepository, GeneroRepository generoRepository,
+			UsuarioRepository usuarioRepository) {
 		this.filmeRepository = filmeRepository;
 		this.generoRepository = generoRepository;
+		this.usuarioRepository = usuarioRepository;
 	}
 
 	public void deleteAll() {
 		this.filmeRepository.deleteAll();
 	}
 
-	public void save(FilmeDTO filmeDTO) {
+	public void save(FilmeInputDTO filmeDTO) {
 		Optional<Genero> encontrarGenero = generoRepository.findByName(filmeDTO.getGenero());
 		String titulo = filmeDTO.getTitulo();
 		LocalDate dataLancamento = filmeDTO.getDataLancamento();
@@ -49,21 +52,11 @@ public class FilmeService {
 
 		Filme filme = new Filme(titulo, dataLancamento, nomeDiretor, genero);
 		this.filmeRepository.saveAndFlush(filme);
-
 		filmeDTO.setId(filme.getId());
 	}
 
-	public FilmeDTO findById(Integer id) {
-		Optional<Filme> filme = filmeRepository.findById(id);
-		if (filme.isPresent()) {
-			FilmeDTO filmeDTO = criarFilmeDTO(filme.get());
-			return filmeDTO;
-		}
-		throw new ServiceException("Filme não encontrado");
-	}
-
-	private FilmeDTO criarFilmeDTO(Filme filme) {
-		FilmeDTO filmeDTO = new FilmeDTO();
+	private FilmeOutputDTO criarFilmeDTO(Filme filme) {
+		FilmeOutputDTO filmeDTO = new FilmeOutputDTO();
 		filmeDTO.setId(filme.getId());
 		filmeDTO.setTitulo(filme.getTitulo());
 		filmeDTO.setDataLancamento(filme.getDataLancamento());
@@ -71,6 +64,15 @@ public class FilmeService {
 		filmeDTO.setGenero(filme.getGenero().getNome());
 		filmeDTO.setAvaliacao(criarAvaliacao(filme.getAvaliacao()));
 		return filmeDTO;
+	}
+
+	public FilmeOutputDTO findById(Integer id) {
+		Optional<Filme> filme = filmeRepository.findById(id);
+		if (filme.isPresent()) {
+			FilmeOutputDTO filmeDTO = criarFilmeDTO(filme.get());
+			return filmeDTO;
+		}
+		throw new ServiceException("Filme não encontrado");
 	}
 
 	private List<AvaliacaoDTO> criarAvaliacao(List<Avaliacao> avaliacoes) {
@@ -87,12 +89,12 @@ public class FilmeService {
 		return resposta;
 	}
 
-	public List<FilmeDTO> findAll() {
-		List<FilmeDTO> todosOsFilmes = new ArrayList<FilmeDTO>();
+	public List<FilmeOutputDTO> findAll() {
+		List<FilmeOutputDTO> todosOsFilmes = new ArrayList<FilmeOutputDTO>();
 		List<Filme> filmes = filmeRepository.findAll();
 
 		for (Filme filme : filmes) {
-			FilmeDTO filmeDTO = criarFilmeDTO(filme);
+			FilmeOutputDTO filmeDTO = criarFilmeDTO(filme);
 			todosOsFilmes.add(filmeDTO);
 		}
 		return todosOsFilmes;
@@ -102,7 +104,7 @@ public class FilmeService {
 		this.filmeRepository.deleteById(id);
 	}
 
-	public void update(FilmeDTO filmeDTO) {
+	public void update(FilmeInputDTO filmeDTO) {
 		Optional<Genero> encontrarGenero = generoRepository.findByName(filmeDTO.getGenero());
 		String titulo = filmeDTO.getTitulo();
 		LocalDate dataLancamento = filmeDTO.getDataLancamento();
@@ -115,22 +117,29 @@ public class FilmeService {
 	}
 
 	public void adicionarAvaliacao(Integer id, AvaliacaoDTO avaliacaoDTO) {
-		Optional<Filme> filmeEncontrado = this.filmeRepository.findById(avaliacaoDTO.getIdFilme());
 		Optional<Usuario> usuarioEncontrado = this.usuarioRepository.findByEmail(avaliacaoDTO.getUsuario());
+		Usuario usuarioParacriar = null;
+		if (usuarioEncontrado.isPresent()) {
+			usuarioParacriar = usuarioEncontrado.get();
+		} else {
+			usuarioParacriar = new Usuario(avaliacaoDTO.getUsuario());
+			this.usuarioRepository.saveAndFlush(usuarioParacriar);
+		}
+
+		Optional<Filme> filmeEncontrado = this.filmeRepository.findById(avaliacaoDTO.getIdFilme());
 		if (filmeEncontrado.isPresent()) {
 			Filme filme = filmeEncontrado.get();
-			Usuario usuario = usuarioEncontrado.get();
 			Integer nota = avaliacaoDTO.getNota();
-			Avaliacao avaliacao = new Avaliacao(usuario, filme, nota);
+			Avaliacao avaliacao = new Avaliacao(usuarioParacriar, filme, nota);
 			filme.adicionarAvaliacao(avaliacao);
 			this.filmeRepository.saveAndFlush(filme);
 		}
 	}
 
-	public FilmeDTO findByTitulo(String titulo) {
+	public FilmeOutputDTO findByTitulo(String titulo) {
 		Optional<Filme> filme = filmeRepository.findByTitulo(titulo);
 		if (filme.isPresent()) {
-			FilmeDTO filmeDTO = criarFilmeDTO(filme.get());
+			FilmeOutputDTO filmeDTO = criarFilmeDTO(filme.get());
 			return filmeDTO;
 		}
 		throw new ServiceException("Filme não encontrado!");

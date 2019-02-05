@@ -6,12 +6,14 @@ import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class FilmeDTO {
+import io.swagger.annotations.ApiModelProperty;
+
+public class FilmeInputDTO {
 
 	private Integer id;
 
-	@NotNull
-	@NotEmpty
+	@NotNull(message = "O campo titulo deve ser preenchido")
+	@NotEmpty(message = "O campo titulo deve não pode estar vazio")
 	private String titulo;
 
 	@NotNull
@@ -21,13 +23,12 @@ public class FilmeDTO {
 	@NotEmpty
 	private String nomeDiretor;
 
+	@NotNull
+	@NotEmpty
 	private String genero;
 
-	// inclusao
+	@ApiModelProperty(hidden = true)
 	private AvaliacaoDTO avaliacaoDTO;
-
-	// consulta
-	private List<AvaliacaoDTO> avaliacao;
 
 	public Integer getId() {
 		return id;
@@ -75,14 +76,6 @@ public class FilmeDTO {
 
 	public void setAvaliacaoDTO(AvaliacaoDTO avaliacaoDTO) {
 		this.avaliacaoDTO = avaliacaoDTO;
-	}
-
-	public List<AvaliacaoDTO> getAvaliacao() {
-		return avaliacao;
-	}
-
-	public void setAvaliacao(List<AvaliacaoDTO> avaliacao) {
-		this.avaliacao = avaliacao;
 	}
 
 }

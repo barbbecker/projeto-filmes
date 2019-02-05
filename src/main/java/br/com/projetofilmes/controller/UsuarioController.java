@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.projetofilmes.dto.UsuarioDTO;
 import br.com.projetofilmes.service.UsuarioService;
+import io.swagger.annotations.Api;
 
 @RestController
-@RequestMapping(value = "projetofilmes")
+@RequestMapping(value = "/projetofilmes")
 public class UsuarioController {
 
 	private UsuarioService usuarioService;

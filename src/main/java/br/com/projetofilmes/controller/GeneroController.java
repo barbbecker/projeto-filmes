@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.projetofilmes.dto.GeneroDTO;
 import br.com.projetofilmes.service.GeneroService;
+import io.swagger.annotations.Api;
 
 @RestController
-@RequestMapping(value = "projetofilmes")
+@RequestMapping(value = "/projetofilmes")
 public class GeneroController {
 
 	private GeneroService generoService;
