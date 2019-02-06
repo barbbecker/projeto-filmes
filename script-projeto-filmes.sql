@@ -3,37 +3,43 @@ SHOW databases;
 USE projetofilmes;
 
 CREATE TABLE genero (
-  generoid INTEGER PRIMARY KEY AUTO_INCREMENT,
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(200) NOT NULL
 );
 
 CREATE TABLE usuario (
-  usuarioid INTEGER  PRIMARY KEY AUTO_INCREMENT,
-  email VARCHAR(200) NOT NULL
+  id INTEGER  PRIMARY KEY AUTO_INCREMENT,
+  email VARCHAR(200) NOT NULL UNIQUE
 );
 
 CREATE TABLE filme (
-  filmeid INTEGER  PRIMARY KEY AUTO_INCREMENT,
+  id INTEGER  PRIMARY KEY AUTO_INCREMENT,
   titulo VARCHAR(250) NOT NULL,  
   data_lancamento DATE NOT NULL,
   nome_diretor VARCHAR(255) NOT NULL,
-  generoid INTEGER NOT NULL
+  genero_id INTEGER NOT NULL
 );
 
 CREATE TABLE avaliacao (
-  avaliacaoid INTEGER  PRIMARY KEY AUTO_INCREMENT,
-  usuarioid INTEGER NOT NULL,
-  filmeid INTEGER NOT NULL,
+  id INTEGER  PRIMARY KEY AUTO_INCREMENT,
+  usuario_id INTEGER NOT NULL,
+  filme_id INTEGER NOT NULL,
   nota INTEGER NOT NULL
 );
 
-ALTER TABLE filme ADD FOREIGN KEY (generoid) REFERENCES genero (generoid);
-ALTER TABLE avaliacao ADD FOREIGN KEY (usuarioid) REFERENCES usuario (usuarioid);
-ALTER TABLE avaliacao ADD FOREIGN KEY (filmeid) REFERENCES filme (filmeid);
+ALTER TABLE filme ADD FOREIGN KEY (genero_id) REFERENCES genero (id);
+ALTER TABLE avaliacao ADD FOREIGN KEY (usuario_id) REFERENCES usuario (id);
+ALTER TABLE avaliacao ADD FOREIGN KEY (filme_id) REFERENCES filme (id);
+
+INSERT INTO genero (nome) VALUES 
+('Ação'),
+('Aventura'),
+('Comédia'),
+('Documentário'),
+('Faroeste'),
+('Ficção Científica'),
+('Romance'),
+('Suspense'),
+('Tragédia');
 
 SET@@global.time_zone='-03:00';
-
-SELECT * FROM genero;
-SELECT * FROM avaliacao;
-
-
