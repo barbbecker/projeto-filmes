@@ -2,8 +2,11 @@ package br.com.projetofilmes.dto;
 
 import javax.validation.constraints.NotNull;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class GeneroDTO {
 
+	@ApiModelProperty(hidden = true)
 	private Integer id;
 
 	@NotNull

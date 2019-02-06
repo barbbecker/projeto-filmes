@@ -43,6 +43,7 @@ public class GeneroService {
 	private GeneroDTO criarGeneroDTO(Genero genero) {
 		GeneroDTO generoDTO = new GeneroDTO();
 		generoDTO.setNome(genero.getNome());
+		generoDTO.setId(genero.getId());
 		return generoDTO;
 	}
 

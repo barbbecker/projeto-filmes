@@ -3,8 +3,11 @@ package br.com.projetofilmes.dto;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class AvaliacaoDTO {
 
+	@ApiModelProperty(hidden = true)
 	private Integer id;
 
 	@NotNull

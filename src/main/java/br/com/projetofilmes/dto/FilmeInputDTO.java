@@ -8,7 +8,8 @@ import javax.validation.constraints.NotNull;
 import io.swagger.annotations.ApiModelProperty;
 
 public class FilmeInputDTO {
-
+	
+	@ApiModelProperty(hidden = true)
 	private Integer id;
 
 	@NotNull(message = "O campo titulo deve ser preenchido")

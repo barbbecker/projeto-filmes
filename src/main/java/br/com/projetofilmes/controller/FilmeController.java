@@ -58,7 +58,7 @@ public class FilmeController {
 		return new ResponseEntity<FilmeOutputDTO>(filme, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/filmes/{titulo}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/filmes/titulo/{titulo}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Busca um filme pelo titulo")
 	public ResponseEntity<FilmeOutputDTO> obterFilmePeloTitulo(@PathVariable("titulo") String titulo) {
 		FilmeOutputDTO filme = filmeService.findByTitulo(titulo);
