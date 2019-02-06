@@ -51,9 +51,9 @@ public class FilmeController {
 		return new ResponseEntity<>(filme, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/filmes/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/filmes/{idFilme}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Busca um filme pelo ID")
-	public ResponseEntity<FilmeOutputDTO> obterFilmePeloId(@PathVariable("id") Integer id) {
+	public ResponseEntity<FilmeOutputDTO> obterFilmePeloId(@PathVariable("idFilme") Integer id) {
 		FilmeOutputDTO filme = filmeService.findById(id);
 		return new ResponseEntity<FilmeOutputDTO>(filme, HttpStatus.OK);
 	}
@@ -95,9 +95,9 @@ public class FilmeController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@DeleteMapping(value = "/filmes/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = "/filmes/{idFilme}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Exclui um filme pelo ID")
-	public ResponseEntity<?> deletar(@PathVariable("id") Integer id) {
+	public ResponseEntity<?> deletar(@PathVariable("idFilme") Integer id) {
 		this.filmeService.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
