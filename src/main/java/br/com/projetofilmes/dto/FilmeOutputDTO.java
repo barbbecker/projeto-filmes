@@ -6,8 +6,6 @@ import java.util.List;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import io.swagger.annotations.ApiModelProperty;
-
 public class FilmeOutputDTO {
 
 	private Integer id;

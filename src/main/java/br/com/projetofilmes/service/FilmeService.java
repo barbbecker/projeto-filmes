@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,7 @@ public class FilmeService {
 		String nomeDiretor = filmeDTO.getNomeDiretor();
 		Genero genero = encontrarGenero.get();
 
-		Filme filme = new Filme(titulo, dataLancamento, nomeDiretor, genero);
+		Filme filme = new Filme(titulo, dataLancamento, nomeDiretor, genero, null);
 		this.filmeRepository.saveAndFlush(filme);
 		filmeDTO.setId(filme.getId());
 	}
@@ -106,14 +107,21 @@ public class FilmeService {
 
 	public void update(FilmeInputDTO filmeDTO) {
 		Optional<Genero> encontrarGenero = generoRepository.findByName(filmeDTO.getGenero());
-		String titulo = filmeDTO.getTitulo();
-		LocalDate dataLancamento = filmeDTO.getDataLancamento();
-		String nomeDiretor = filmeDTO.getNomeDiretor();
-		Genero genero = encontrarGenero.get();
+		Optional<Filme> filmeEncontrado = filmeRepository.findById(filmeDTO.getId());
+		if (filmeEncontrado.isPresent()) {
+			String titulo = filmeDTO.getTitulo();
+			LocalDate dataLancamento = filmeDTO.getDataLancamento();
+			String nomeDiretor = filmeDTO.getNomeDiretor();
+			Genero genero = encontrarGenero.get();
+			Integer idFilme = filmeEncontrado.get().getId();
+			List<Avaliacao> avaliacoes = filmeEncontrado.get().getAvaliacao();
+			Filme filme = new Filme(idFilme, titulo, dataLancamento, nomeDiretor, genero, avaliacoes);
+			this.filmeRepository.saveAndFlush(filme);
+			filmeDTO.setId(filme.getId());
+		} else {
+			throw new Error("Not Found");
+		}
 
-		Filme filme = new Filme(titulo, dataLancamento, nomeDiretor, genero);
-		this.filmeRepository.saveAndFlush(filme);
-		filmeDTO.setId(filme.getId());
 	}
 
 	public void adicionarAvaliacao(Integer id, AvaliacaoDTO avaliacaoDTO) {
@@ -144,5 +152,17 @@ public class FilmeService {
 		}
 		throw new ServiceException("Filme não encontrado!");
 	}
+
+	public FilmeOutputDTO getIndicacaoFilme(String email) {
+		Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
+		Optional<List<Filme>> filmes = this.filmeRepository.getIndicacaoFilme(usuario.get().getId());
+		FilmeOutputDTO filmeDto = criarFilmeDTO(this.getRandomFilme(filmes.get()));
+		return filmeDto;
+	}
+
+	private Filme getRandomFilme(List<Filme> list) { 
+		Random rand = new Random(); 
+		return list.get(rand.nextInt(list.size())); 
+	} 
 
 }

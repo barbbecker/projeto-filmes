@@ -1,6 +1,5 @@
 package br.com.projetofilmes.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,15 +17,14 @@ public class Avaliacao extends BaseDomain {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "avaliacaoid")
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "usuarioid")
+	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;
 
 	@ManyToOne
-	@JoinColumn(name = "filmeid", referencedColumnName = "filmeid")
+	@JoinColumn(name = "filme_id")
 	private Filme filme;
 
 	@NotNull(message = "A nota da avaliação não pode ser nula")

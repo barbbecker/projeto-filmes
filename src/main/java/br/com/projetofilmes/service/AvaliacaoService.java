@@ -73,4 +73,19 @@ public class AvaliacaoService {
 		return avaliacaoDTO;
 	}
 
+	public Boolean isAvaliacaoSalva(String userEmail, Integer filmeId) {
+		if (userEmail == null || filmeId == null) {
+			throw new ServiceException("Parametros inválidos");
+		}
+		
+		Optional<Usuario> usuario = this.usuarioRepository.findByEmail(userEmail);
+		if (usuario.isPresent()) {			
+			Optional<Avaliacao> avaliacao = this.avaliacaoRepository.findByUserEmailAndFilmeId(usuario.get().getId(), filmeId);
+			return avaliacao.isPresent();
+		} else {
+			return false;
+		}
+	
+	}
+
 }

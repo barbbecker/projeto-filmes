@@ -14,7 +14,6 @@ public class Genero extends BaseDomain {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "generoid")
 	private Integer id;
 
 	@NotNull

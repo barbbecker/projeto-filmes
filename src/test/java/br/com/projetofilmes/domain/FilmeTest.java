@@ -11,7 +11,7 @@ public class FilmeTest {
 	public void deveValidarCriacaoDeUmFilme() {
 		Genero acao = new Genero("ação");
 		LocalDate dataLancamento = LocalDate.of(1977, 5, 19);
-		Filme filme = new Filme("Star Wars - Uma nova Esperança", dataLancamento, "George Lucas", acao);
+		Filme filme = new Filme("Star Wars - Uma nova Esperança", dataLancamento, "George Lucas", acao, null);
 
 		Assert.assertEquals("Star Wars - Uma nova Esperança", filme.getTitulo());
 		Assert.assertEquals(dataLancamento, filme.getDataLancamento());

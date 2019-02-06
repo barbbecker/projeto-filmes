@@ -54,7 +54,8 @@ public class AvaliacaoServiceTest {
 		genero = new Genero("scifi");
 		generoRepository.saveAndFlush(genero);
 
-		filme = new Filme("Star Wars - Retorno de Jedi", LocalDate.of(1983, Month.MAY, 25), "George Lucas", genero);
+		filme = new Filme("Star Wars - Retorno de Jedi", LocalDate.of(1983, Month.MAY, 25), "George Lucas", genero,
+				null);
 		filmeRepository.saveAndFlush(filme);
 	}
 
@@ -74,11 +75,11 @@ public class AvaliacaoServiceTest {
 		avaliacaoASalvar.setNota(Integer.valueOf(5));
 
 		avaliacaoService.save(avaliacaoASalvar);
-		
+
 		Optional<Usuario> usuario = usuarioRepository.findByEmail(avaliacaoASalvar.getUsuario());
 
 		AvaliacaoDTO avaliacaoSalva = avaliacaoService.findById(avaliacaoASalvar.getId());
-		
+
 		Assert.assertEquals("samantha@yahoo.com.br", avaliacaoSalva.getUsuario());
 		Assert.assertEquals(usuario.isPresent(), true);
 		Assert.assertEquals(filme.getId(), avaliacaoSalva.getIdFilme());

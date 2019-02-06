@@ -1,7 +1,6 @@
 package br.com.projetofilmes.dto;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

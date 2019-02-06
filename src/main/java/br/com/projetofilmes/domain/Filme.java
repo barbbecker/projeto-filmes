@@ -24,7 +24,6 @@ public class Filme extends BaseDomain {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "filmeid")
 	private Integer id;
 
 	@NotNull(message = "O titulo do filme não pode ser nulo")
@@ -41,7 +40,7 @@ public class Filme extends BaseDomain {
 	private String nomeDiretor;
 
 	@ManyToOne
-	@JoinColumn(name = "generoid")
+	@JoinColumn(name = "genero_id")
 	private Genero genero;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "filme")
@@ -52,17 +51,22 @@ public class Filme extends BaseDomain {
 
 	}
 
-	public Filme(String titulo, LocalDate dataLancamento, String nomeDiretor, Genero genero) {
+	public Filme(String titulo, LocalDate dataLancamento, String nomeDiretor, Genero genero, List<Avaliacao> avaliacoes) {
+		if (avaliacoes != null) {
+			this.avaliacoes = avaliacoes;
+		} else {
+			this.avaliacoes = new ArrayList<>();
+		}
 		this.titulo = titulo;
 		this.dataLancamento = dataLancamento;
 		this.nomeDiretor = nomeDiretor;
 		this.genero = genero;
-		this.avaliacoes = new ArrayList<>();
+		
 		validarDomain();
 	}
 
-	public Filme(Integer id, String titulo, LocalDate dataLancamento, String nomeDiretor, Genero genero) {
-		this(titulo, dataLancamento, nomeDiretor, genero);
+	public Filme(Integer id, String titulo, LocalDate dataLancamento, String nomeDiretor, Genero genero,  List<Avaliacao> avaliacoes) {
+		this(titulo, dataLancamento, nomeDiretor, genero, avaliacoes);
 		this.id = id;
 	}
 
