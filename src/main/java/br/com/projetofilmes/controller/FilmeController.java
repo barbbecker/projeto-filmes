@@ -77,10 +77,9 @@ public class FilmeController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/filmes/{id}/avaliacao", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/filmes/avaliacao", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Salva uma avaliação pelo ID do filme")
-	public ResponseEntity<?> salvarAvaliacao(@PathVariable("id") Integer id,
-			@RequestBody @Valid AvaliacaoDTO avaliacaoDTO, BindingResult result) {
+	public ResponseEntity<?> salvarAvaliacao(@RequestBody @Valid AvaliacaoDTO avaliacaoDTO, BindingResult result) {
 		if (result.hasErrors()) {
 			final List<String> errors = result.getAllErrors().stream().map(ObjectError::getDefaultMessage)
 					.collect(Collectors.toList());
@@ -91,7 +90,7 @@ public class FilmeController {
 		if (isPresent) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
-		this.filmeService.adicionarAvaliacao(id, avaliacaoDTO);
+		this.filmeService.adicionarAvaliacao(avaliacaoDTO.getIdFilme(), avaliacaoDTO);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
