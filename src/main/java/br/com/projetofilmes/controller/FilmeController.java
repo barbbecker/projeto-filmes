@@ -102,15 +102,15 @@ public class FilmeController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	@PutMapping(value = "/filmes/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/filmes/{idFilme}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Atualiza um filme pelo ID")
-	public ResponseEntity<?> update(@RequestBody FilmeInputDTO filmeDTO, BindingResult result) {
+	public ResponseEntity<?> update(@PathVariable("idFilme") Integer idFilme, @RequestBody FilmeInputDTO filmeDTO, BindingResult result) {
 		if (result.hasErrors()) {
 			final List<String> errors = result.getAllErrors().stream().map(ObjectError::getDefaultMessage)
 					.collect(Collectors.toList());
 			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errors);
 		}
-		this.filmeService.update(filmeDTO);
+		this.filmeService.update(idFilme, filmeDTO);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 

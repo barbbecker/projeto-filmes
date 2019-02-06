@@ -97,7 +97,7 @@ public class FilmeServiceTest {
 
 		filmeDTO.setDataLancamento(LocalDate.of(1999, Month.MAY, 22));
 		filmeDTO.setNomeDiretor("George");
-		filmeService.update(filmeDTO);
+		filmeService.update(filmeDTO.getId(), filmeDTO);
 
 		FilmeOutputDTO filmeEditado = filmeService.findById(filmeDTO.getId());
 		Assert.assertNotNull(LocalDate.of(1999, Month.MAY, 22));

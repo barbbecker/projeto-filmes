@@ -104,15 +104,14 @@ public class FilmeService {
 		this.filmeRepository.deleteById(id);
 	}
 
-	public void update(FilmeInputDTO filmeDTO) {
+	public void update(Integer idFilme, FilmeInputDTO filmeDTO) {
 		Optional<Genero> encontrarGenero = generoRepository.findByName(filmeDTO.getGenero());
-		Optional<Filme> filmeEncontrado = filmeRepository.findById(filmeDTO.getId());
+		Optional<Filme> filmeEncontrado = filmeRepository.findById(idFilme);
 		if (filmeEncontrado.isPresent()) {
 			String titulo = filmeDTO.getTitulo();
 			LocalDate dataLancamento = filmeDTO.getDataLancamento();
 			String nomeDiretor = filmeDTO.getNomeDiretor();
 			Genero genero = encontrarGenero.get();
-			Integer idFilme = filmeEncontrado.get().getId();
 			List<Avaliacao> avaliacoes = filmeEncontrado.get().getAvaliacao();
 			Filme filme = new Filme(idFilme, titulo, dataLancamento, nomeDiretor, genero, avaliacoes);
 			this.filmeRepository.saveAndFlush(filme);
