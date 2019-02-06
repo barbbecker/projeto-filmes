@@ -142,8 +142,8 @@ public class FilmeServiceTest {
 		avaliacao2.setUsuario("robertamartins@gmail.com");
 		avaliacao2.setNota(Integer.valueOf(5));
 
-		filmeService.adicionarAvaliacao(avaliacao1.getId(), avaliacao1);
-		filmeService.adicionarAvaliacao(avaliacao2.getId(), avaliacao2);
+		filmeService.adicionarAvaliacao(filmeDTO1.getId(), avaliacao1);
+		filmeService.adicionarAvaliacao(filmeDTO1.getId(), avaliacao2);
 
 		FilmeOutputDTO filmeComAvaliacao = filmeService.findById(filmeDTO1.getId());
 		Assert.assertEquals(2, filmeComAvaliacao.getAvaliacao().size());
