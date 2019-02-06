@@ -135,12 +135,10 @@ public class FilmeServiceTest {
 		filmeService.save(filmeDTO1);
 
 		AvaliacaoDTO avaliacao1 = new AvaliacaoDTO();
-		avaliacao1.setIdFilme(filmeDTO1.getId());
 		avaliacao1.setUsuario("barbarebecker@gmail.com");
 		avaliacao1.setNota(Integer.valueOf(5));
 
 		AvaliacaoDTO avaliacao2 = new AvaliacaoDTO();
-		avaliacao2.setIdFilme(filmeDTO1.getId());
 		avaliacao2.setUsuario("robertamartins@gmail.com");
 		avaliacao2.setNota(Integer.valueOf(5));
 
@@ -162,7 +160,6 @@ public class FilmeServiceTest {
 
 		AvaliacaoDTO avaliacaoASalvar = new AvaliacaoDTO();
 		avaliacaoASalvar.setUsuario("samantha@yahoo.com.br");
-		avaliacaoASalvar.setIdFilme(filmeDTO1.getId());
 		avaliacaoASalvar.setNota(Integer.valueOf(7));
 
 		filmeService.adicionarAvaliacao(filmeDTO1.getId(), avaliacaoASalvar);

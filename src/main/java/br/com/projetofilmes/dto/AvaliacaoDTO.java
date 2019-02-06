@@ -14,8 +14,6 @@ public class AvaliacaoDTO {
 	@NotEmpty
 	private String usuario;
 
-	private Integer idFilme;
-
 	private Integer nota;
 
 	public Integer getId() {
@@ -32,14 +30,6 @@ public class AvaliacaoDTO {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
-	}
-
-	public Integer getIdFilme() {
-		return idFilme;
-	}
-
-	public void setIdFilme(Integer idFilme) {
-		this.idFilme = idFilme;
 	}
 
 	public Integer getNota() {

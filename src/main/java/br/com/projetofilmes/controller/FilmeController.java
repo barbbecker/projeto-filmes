@@ -77,20 +77,21 @@ public class FilmeController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/filmes/avaliacao", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/filmes/{idFilme}/avaliacao", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Salva uma avaliação pelo ID do filme")
-	public ResponseEntity<?> salvarAvaliacao(@RequestBody @Valid AvaliacaoDTO avaliacaoDTO, BindingResult result) {
+	public ResponseEntity<?> salvarAvaliacao(@PathVariable("idFilme") Integer idFilme,
+			@RequestBody @Valid AvaliacaoDTO avaliacaoDTO, BindingResult result) {
 		if (result.hasErrors()) {
 			final List<String> errors = result.getAllErrors().stream().map(ObjectError::getDefaultMessage)
 					.collect(Collectors.toList());
 			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errors);
 		}
 		Boolean isPresent = this.avaliacaoService.isAvaliacaoSalva(avaliacaoDTO.getUsuario(),
-				avaliacaoDTO.getIdFilme());
+				idFilme);
 		if (isPresent) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
-		this.filmeService.adicionarAvaliacao(avaliacaoDTO.getIdFilme(), avaliacaoDTO);
+		this.filmeService.adicionarAvaliacao(idFilme, avaliacaoDTO);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 

@@ -82,7 +82,6 @@ public class FilmeService {
 		for (Avaliacao avaliacao : avaliacoes) {
 			AvaliacaoDTO avaliacaoDTO = new AvaliacaoDTO();
 			avaliacaoDTO.setId(avaliacao.getId());
-			avaliacaoDTO.setIdFilme(avaliacao.getFilme().getId());
 			avaliacaoDTO.setUsuario(avaliacao.getUsuario().getEmail());
 			avaliacaoDTO.setNota(avaliacao.getNota());
 			resposta.add(avaliacaoDTO);
@@ -124,7 +123,7 @@ public class FilmeService {
 
 	}
 
-	public void adicionarAvaliacao(Integer id, AvaliacaoDTO avaliacaoDTO) {
+	public void adicionarAvaliacao(Integer idFilme, AvaliacaoDTO avaliacaoDTO) {
 		Optional<Usuario> usuarioEncontrado = this.usuarioRepository.findByEmail(avaliacaoDTO.getUsuario());
 		Usuario usuarioParacriar = null;
 		if (usuarioEncontrado.isPresent()) {
@@ -134,7 +133,7 @@ public class FilmeService {
 			this.usuarioRepository.saveAndFlush(usuarioParacriar);
 		}
 
-		Optional<Filme> filmeEncontrado = this.filmeRepository.findById(avaliacaoDTO.getIdFilme());
+		Optional<Filme> filmeEncontrado = this.filmeRepository.findById(idFilme);
 		if (filmeEncontrado.isPresent()) {
 			Filme filme = filmeEncontrado.get();
 			Integer nota = avaliacaoDTO.getNota();
