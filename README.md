@@ -17,8 +17,8 @@ Este projeto é destinado a prova técnica realizada pela Ubots.
 
 API de filmes requisitada em processo de seleção;
 
-Disponível em: "url da Heroku"
-Endpoints em: "url da swagger"
+Endpoints disponíveis em: http://localhost:8080
+Swagger em: http://localhost:8080/swagger-ui.html
 
 ## Principais recursos utilizados
 
@@ -126,6 +126,7 @@ ALTER TABLE avaliacao ADD FOREIGN KEY (filme_id) REFERENCES filme (id);
 
 ## Possíveis melhorias
 
+- Subir a API para o Heroku
 - Adicionar autenticação e identificação do usuário de forma adequada
 - Indicar o filme de uma forma mais inteligente olhando para as preferências do usuário
 - Fazer o front da aplicação
