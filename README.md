@@ -84,7 +84,7 @@ CREATE TABLE genero (id INTEGER PRIMARY KEY AUTO_INCREMENT, nome VARCHAR(200) NO
 
 ```
 INSERT INTO genero (nome) VALUES 
-('Ação'), ('Animação'), ('Aventura'),('Comédia'), ('Documentário'), ('Faroeste'), ('Ficção Científica'), ('Romance'), ('Suspense'), ('Tragédia');
+('Ação'), ('Aventura'),('Comédia'), ('Documentário'), ('Faroeste'), ('Ficção Científica'), ('Romance'), ('Suspense'), ('Tragédia');
 ```
 
 - Tabela usuário:
