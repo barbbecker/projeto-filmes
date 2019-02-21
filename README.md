@@ -46,7 +46,7 @@ Passos necessários para rodar o projeto sem o docker:
 - Clonar no projeto: 
 ```
   git clone 
-  
+  https://github.com/barbbecker/projeto-filmes.git
   git
 ```
 - Instalar o mysql ou rodar através do docker-compose que se encontra no diretório mysql:
